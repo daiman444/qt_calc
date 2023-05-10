@@ -11,6 +11,7 @@ from PyQt5.QtCore import QCoreApplication
 class Example(QWidget):
     def __init__(self):
         super().__init__()
+        # variable initialization
         self.pb = QPushButton
         self.grid = QGridLayout()
         self.lbl_result = QLabel()
@@ -19,15 +20,12 @@ class Example(QWidget):
         self.lbl_input.setText('0')
         self.input_string = ''
         self.input_list = []
-        self.pb_pos_x = 20
-        self.pb_pos_y = 30
         self.font_result = QFont('Arial', 16, 3)
         self.font_input = QFont('Arial', 25, 1)
         self.v_layout = QVBoxLayout()
+        self.init_ui()
 
-        self.initUI()
-
-    def initUI(self):
+    def init_ui(self):
         self.lbl_result.setFont(self.font_result)
         self.lbl_result.setStyleSheet('color: orange')
         self.lbl_result.setAlignment(Qt.AlignRight)
@@ -46,13 +44,6 @@ class Example(QWidget):
         positions = [(i, j) for i in range(5) for j in range(4)]
 
         for position, name in zip(positions, names):
-            if name == '':
-                continue
-            #if name == '=':
-            #    pb = QPushButton(name)
-            #    self.grid.addWidget(pb, *position, 1, 2, )
-            #    pb.clicked.connect(lambda widget, n=name: self.pb_action(widget, action=n))
-            #    break
             pb = QPushButton(name)
             self.grid.addWidget(pb, *position)
             pb.clicked.connect(lambda widget, n=name: self.pb_action(widget, action=n))
@@ -65,6 +56,8 @@ class Example(QWidget):
         self.setGeometry(300, 300, 300, 200)
         self.setWindowTitle('Calc')
         self.show()
+
+# TODO  add a method for output of input errors so that application does not crash on errors
 
     def pb_action(self, widget, action):
         if action == 'C':
