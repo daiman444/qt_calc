@@ -12,25 +12,28 @@ class Example(QWidget):
     def __init__(self):
         super().__init__()
         self.pb = QPushButton
+        self.grid = QGridLayout()
+        self.lbl_result = QLabel()
+        self.lbl_result.setText('Result')
+        self.lbl_input = QLabel()
+        self.lbl_input.setText('0')
+        self.input_string = ''
         self.pb_pos_x = 20
         self.pb_pos_y = 30
         self.font_result = QFont('Arial', 16, 3)
         self.font_input = QFont('Arial', 25, 1)
+        self.v_layout = QVBoxLayout()
 
         self.initUI()
 
     def initUI(self):
-        grid = QGridLayout()
-        result_string = QLabel('Result')
-        result_string.setFont(self.font_result)
-        result_string.setStyleSheet('color: orange; background-color: rgb(64, 64, 64)')
-        result_string.setAlignment(Qt.AlignRight)
+        self.lbl_result.setFont(self.font_result)
+        self.lbl_result.setStyleSheet('color: orange')
+        self.lbl_result.setAlignment(Qt.AlignRight)
 
-        input_string = QLabel('0')
-        input_string.setFont(self.font_input)
-        input_string.setStyleSheet('color: rgb(153, 255, 153); background-color: rgb(64, 64, 64)')
-        input_string.setAlignment(Qt.AlignRight)
-
+        self.lbl_input.setFont(self.font_input)
+        self.lbl_input.setStyleSheet('color: rgb(153, 255, 153)')
+        self.lbl_input.setAlignment(Qt.AlignRight)
 
         names = ['C', '+/-', '<<', '*',
                  '7', '8', '9', '/',
@@ -46,21 +49,29 @@ class Example(QWidget):
                 continue
             if name == '=':
                 pb = QPushButton(name)
-                grid.addWidget(pb, *position, 1, 2, )
+                self.grid.addWidget(pb, *position, 1, 2, )
+                pb.clicked.connect(lambda widget, n=name: self.pb_action(widget, action=n))
                 break
             pb = QPushButton(name)
-            grid.addWidget(pb, *position)
+            self.grid.addWidget(pb, *position)
+            pb.clicked.connect(lambda widget, n=name: self.pb_action(widget, action=n))
 
-        v_layout = QVBoxLayout()
+        self.v_layout.addWidget(self.lbl_result)
+        self.v_layout.addWidget(self.lbl_input)
+        self.v_layout.addLayout(self.grid)
 
-        v_layout.addWidget(result_string)
-        v_layout.addWidget(input_string)
-        v_layout.addLayout(grid)
-
-        self.setLayout(v_layout)
+        self.setLayout(self.v_layout)
         self.setGeometry(300, 300, 300, 200)
         self.setWindowTitle('Calc')
         self.show()
+
+    def pb_action(self, widget, action):
+        if action == 'C':
+            self.input_string = ''
+            self.lbl_input.setText('0')
+        else:
+            self.input_string += str(action)
+            self.lbl_input.setText(self.input_string)
 
 
 if __name__ == "__main__":
