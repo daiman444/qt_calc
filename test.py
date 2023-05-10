@@ -77,7 +77,7 @@ class Example(QWidget):
             self.del_last_value()
             return
         elif action == '+/-':
-            pass
+            return
         self.input_string = ''
         self.input_list += action
         for i in self.input_list:
