@@ -8,9 +8,7 @@ programming skills in the Python3 language using the PyQt5 library
 
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QGridLayout, QVBoxLayout, QLabel
-from PyQt5.QtGui import QFont
 from PyQt5.QtCore import Qt
-from PyQt5.QtCore import QCoreApplication
 
 
 class Example(QWidget):
@@ -52,7 +50,7 @@ class Example(QWidget):
                  ]
 
         # button position mark
-        # copied and pasted, but i liked the method and i left it as a keepsake
+        # copied and pasted, but I liked the method and I left it as a keepsake
         positions = [(i, j) for i in range(5) for j in range(4)]
 
         # creating buttons with position and name assignment to them
@@ -78,11 +76,11 @@ class Example(QWidget):
         """
         in this method, signals from buttons are received and actions related to
         them are performed
-
         :param widget: unused
         :param action: gets from creating buttons
         :return: None
         """
+
         if action == 'C':
             self.clear()
             return
@@ -137,4 +135,3 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     ex = Example()
     sys.exit(app.exec_())
-
