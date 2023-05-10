@@ -69,6 +69,9 @@ class Example(QWidget):
         if action == 'C':
             self.input_string = ''
             self.lbl_input.setText('0')
+            self.lbl_result.setText('Result')
+        elif action == '=':
+            self.lbl_result.setText(self.input_string)
         else:
             self.input_string += str(action)
             self.lbl_input.setText(self.input_string)
