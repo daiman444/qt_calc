@@ -86,6 +86,7 @@ class Example(QWidget):
 
     def clear(self):
         self.input_string = ''
+        self.input_list = []
         self.lbl_input.setText('0')
         self.lbl_result.setText('Result')
 
