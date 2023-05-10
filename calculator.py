@@ -36,11 +36,11 @@ class Example(QWidget):
         self.lbl_input.setStyleSheet('color: rgb(153, 255, 153)')
         self.lbl_input.setAlignment(Qt.AlignRight)
 
-        names = ['C', '+/-', '<<', '*',
-                 '7', '8', '9', '/',
-                 '4', '5', '6', '+',
-                 '1', '2', '3', '-',
-                 '0', '.', '='
+        names = ['C', '<<', '(', ')',
+                 '7', '8', '9', '*',
+                 '4', '5', '6', '/',
+                 '1', '2', '3', '+',
+                 '0', '.', '=', '-',
                  ]
 
         positions = [(i, j) for i in range(5) for j in range(4)]
@@ -48,11 +48,11 @@ class Example(QWidget):
         for position, name in zip(positions, names):
             if name == '':
                 continue
-            if name == '=':
-                pb = QPushButton(name)
-                self.grid.addWidget(pb, *position, 1, 2, )
-                pb.clicked.connect(lambda widget, n=name: self.pb_action(widget, action=n))
-                break
+            #if name == '=':
+            #    pb = QPushButton(name)
+            #    self.grid.addWidget(pb, *position, 1, 2, )
+            #    pb.clicked.connect(lambda widget, n=name: self.pb_action(widget, action=n))
+            #    break
             pb = QPushButton(name)
             self.grid.addWidget(pb, *position)
             pb.clicked.connect(lambda widget, n=name: self.pb_action(widget, action=n))
