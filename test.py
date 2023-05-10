@@ -18,6 +18,7 @@ class Example(QWidget):
         self.lbl_input = QLabel()
         self.lbl_input.setText('0')
         self.input_string = ''
+        self.input_list = []
         self.pb_pos_x = 20
         self.pb_pos_y = 30
         self.font_result = QFont('Arial', 16, 3)
@@ -67,14 +68,41 @@ class Example(QWidget):
 
     def pb_action(self, widget, action):
         if action == 'C':
-            self.input_string = ''
-            self.lbl_input.setText('0')
-            self.lbl_result.setText('Result')
+            self.clear()
+            return
         elif action == '=':
-            self.lbl_result.setText(self.input_string)
-        else:
-            self.input_string += str(action)
-            self.lbl_input.setText(self.input_string)
+            self.result_output()
+            return
+        elif action == '<<':
+            self.del_last_value()
+            return
+        elif action == '+/-':
+            pass
+        self.input_string = ''
+        self.input_list += action
+        for i in self.input_list:
+            self.input_string += i
+        self.lbl_input.setText(self.input_string)
+
+    def clear(self):
+        self.input_string = ''
+        self.lbl_input.setText('0')
+        self.lbl_result.setText('Result')
+
+    def result_output(self):
+        result = eval(self.input_string)
+        self.lbl_result.setText('%s' % result)
+
+    def del_last_value(self):
+        del self.input_list[-1]
+        if len(self.input_list) == 0:
+            self.clear()
+            return
+        self.input_string = ''
+        for i in self.input_list:
+            self.input_string += i
+        self.lbl_input.setText(self.input_string)
+
 
 
 if __name__ == "__main__":
